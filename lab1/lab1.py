@@ -26,7 +26,7 @@ data = np.loadtxt('data/data.txt', delimiter='\t')
 data_min = data.min()
 data_max = data.max()
 lower_bound = (data_min / 100).astype(int) * 100
-upper_bound = (data_max / 100).astype(int) * 100
+upper_bound = (data_max / 100).astype(int) * 100 + 100
 
 intervals = np.append(np.arange(lower_bound, upper_bound, step), upper_bound)
 occurrences = np.histogram(data, bins=intervals + 1)[0]
