@@ -2,18 +2,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 m = 128
-delta = 250
+delta = 0.25
 data = np.loadtxt('../lab1/data/data.txt', delimiter='\t', dtype=int)
 
-rs = []
 
-for k in range(m - 1):
-    r = (m * np.sum(data[0:m - 1] * data[k: m - 1 + k]) - np.sum(data[0:m - 1]) * np.sum(data[k: m - 1 + k])) \
-        / np.sqrt((m * np.sum(data[0:m - 1] ** 2) - np.sum(data[0:m - 1]) ** 2)
-                  * (m * np.sum(data[k:m - 1 + k] ** 2) - np.sum(data[k:m - 1 + k]) ** 2))
-    rs.append(r)
+def auto_correlation(x, length):
+    return np.array([1] + [np.corrcoef(x[:-i], x[i:])[0, 1] for i in range(1, length)])
+
 
 fig, axes = plt.subplots(1, 2)
-axes[0].plot(range(m - 1), rs)
+axes[0].plot(np.arange(0, m*delta, delta), auto_correlation(data, m))
 axes[1].scatter(data[:-1], data[1:])
 plt.show()
