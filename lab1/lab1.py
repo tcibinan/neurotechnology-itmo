@@ -1,27 +1,15 @@
-import os
 import logging
 from datetime import datetime
 
 import numpy as np
 
+from common.common import init_logging
 
-def init_logging(debug=False, file=None):
-    level = logging.DEBUG if debug else logging.INFO
-    handlers = [logging.StreamHandler()]
-    if file:
-        dirname = os.path.dirname(file)
-        if dirname:
-            os.makedirs(dirname, exist_ok=True)
-        handlers.append(logging.FileHandler(file))
-    logging.basicConfig(level=level, format='[%(levelname)s\t%(asctime)s] %(message)s',
-                        handlers=handlers)
-
-
-init_logging(file='logs/lab1.log.' + str(datetime.now()))
+init_logging(file='lab1/logs/lab1.log.' + str(datetime.now()))
 
 step = 50
 decimals = 3
-data = np.loadtxt('data/data.txt', delimiter='\t')
+data = np.loadtxt('lab1/data/data.txt', delimiter='\t')
 
 data_min = data.min()
 data_max = data.max()
